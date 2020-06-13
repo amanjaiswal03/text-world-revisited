@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-const worldSchema = new Schema({
+const storyLineSchema = new Schema({
     id: Number,
     name: String,
     dateCreated: {type: Date, default: Date.now},
-    majorEvents: [String],
+    theme: String,
+    intro: String,
+    posts: [String],
     details:{
         physics: String,
         cosmology: String,
