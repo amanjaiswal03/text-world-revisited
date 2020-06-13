@@ -6,6 +6,7 @@ const characterSchema = new Schema({
     name: String,
     dateCreated: {type: Date, default: Date.now},
     background: String,
+    userId: Number,
     worldId: Number,
     storyLineId: Number 
 })
