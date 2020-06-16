@@ -3,10 +3,8 @@ var Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     id: Number,
-    userName: String,
     email: String,
     password: String,
-    dateCreated: {type: Date, default: Date.now},
-    characterId: String
+    dateCreated: {type: Date, default: Date.now}
 })
 module.exports = mongoose.model('users', userSchema);

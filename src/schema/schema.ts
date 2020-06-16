@@ -14,11 +14,12 @@ const UserType = new GraphQLObjectType({
         _id: {type: GraphQLID},
         email: {type: GraphQLString},
         password: {type: GraphQLString},
+        dateCreated: {type: GraphQLString},
         characters: {
             type: CharacterType,
             resolve (parent: any, args: any){
                 return character.find({creatorId: parent._id},function(err: Error, data: any){
-                    console.log(err);
+                    if (err) console.log(err);
                     return data
                 })
             }
@@ -40,7 +41,7 @@ const CharacterType = new GraphQLObjectType({
             type: StoryLineType,
             resolve(parent: any, args: any){
                 return storyLine.find({charactersId: {$elemMatch: {$eq: parent._id}}},function(err:Error, data:any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -49,7 +50,7 @@ const CharacterType = new GraphQLObjectType({
             type: PostType,
             resolve(parent: any, args: any){
                 return post.find({creatorId: parent._id},function(err: Error, data: any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -71,7 +72,7 @@ const StoryLineType = new GraphQLObjectType({
             type: CharacterType,
             resolve(parent:any, args:any){
                 return character.findOne({_id: parent.creatorId},function(err:Error, data:any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -80,7 +81,7 @@ const StoryLineType = new GraphQLObjectType({
             type: WorldType,
             resolve(parent: any, args: any){
                 return character.find({_id: {$in: parent.charactersId}}, function(err: Error, data: any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -89,7 +90,7 @@ const StoryLineType = new GraphQLObjectType({
             type: PostType,
             resolve(parent: any, args: any){
                 return postSchema.find({storyLineId: parent._id}, function(err:Error, data: any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -101,13 +102,15 @@ const WorldType = new GraphQLObjectType({
     name: 'World',
     fields: () => ({
         _id: { type: GraphQLID },
+        name: { type : GraphQLString},
+        background: {type: GraphQLString},
         creatorId: { type: GraphQLID },
         dateCreated: {type: GraphQLString},
         creator: { 
             type: UserType,
             resolve(parent:any, args:any){
                 return user.findOne({_id: parent.creatorId},function(err:Error, data:any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -139,13 +142,15 @@ const PostType = new GraphQLObjectType({
         _id: { type: GraphQLID },
         creatorId: { type: GraphQLID },
         type: {type: GraphQLString},
+        title: {type: GraphQLString},
+        detail: {type: GraphQLString},
         storyLineId: {type: GraphQLID},
         dateCreated: {type: GraphQLString},
         creator: { 
             type: CharacterType,
             resolve(parent:any, args:any){
                 return character.findOne({_id: parent.creatorId},function(err:Error, data:any){
-                    console.log(err)
+                    if (err) console.log(err)
                     return data
                 })
             }
@@ -154,3 +159,17 @@ const PostType = new GraphQLObjectType({
     })
 })
 
+const RootQuery = new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: () => ({
+        worlds: {
+            type: GraphQLList(WorldType),
+            resolve(parent:any, args:any){
+                return world.find({}, function(err: Error, doc:any){
+                    if (err) console.log(err)
+                    return doc
+                })
+            }
+        }
+    })
+})

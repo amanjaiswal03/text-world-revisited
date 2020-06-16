@@ -5,12 +5,7 @@ const worldSchema = new Schema({
     id: Number,
     name: String,
     dateCreated: {type: Date, default: Date.now},
-    majorEvents: [String],
-    details:{
-        physics: String,
-        cosmology: String,
-        geography: String,
-        culture: String
-    }  
+    background: String,
+    creatorId: String
 })
 module.exports = mongoose.model('worlds', worldSchema);
