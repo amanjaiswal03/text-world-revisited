@@ -170,6 +170,37 @@ const RootQuery = new GraphQLObjectType({
                     return doc
                 })
             }
+        },
+        world: {
+            type: WorldType,
+            args: {
+                id: {type: GraphQLID}
+            },
+            resolve(parents: any, args: any){
+                return world.findById(args.id);
+            }
         }
     })
+})
+
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addWorld: {
+            type: WorldType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString)},
+                background: { type: new GraphQLNonNull(GraphQLString)},
+                creatorId: {type: new GraphQLNonNull(GraphQLID)}
+            },
+            resolve(parents: any, args: any){
+                let newWorld = new world({
+                    name: args.name,
+                    background: args.background,
+                    creatorId: args.creatorId
+                });
+                return newWorld.save();
+            }
+        }
+    }
 })
