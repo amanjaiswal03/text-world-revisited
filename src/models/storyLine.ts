@@ -15,3 +15,4 @@ const storyLineSchema = new Schema({
         culture: String
     }  
 })
+module.exports = mongoose.model('storyLines', storyLineSchema);

@@ -13,3 +13,4 @@ const worldSchema = new Schema({
         culture: String
     }  
 })
+module.exports = mongoose.model('worlds', worldSchema);

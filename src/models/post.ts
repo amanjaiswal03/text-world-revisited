@@ -9,3 +9,5 @@ const postSchema = new Schema({
     characterId: String,
     storyLineId: String 
 })
+
+module.exports = mongoose.model('posts', postSchema);

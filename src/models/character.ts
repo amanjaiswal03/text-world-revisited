@@ -10,3 +10,5 @@ const characterSchema = new Schema({
     worldId: Number,
     storyLineId: Number 
 })
+
+module.exports = mongoose.model('characters', characterSchema);
