@@ -1,10 +1,20 @@
-import express = require('express');
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+var schema = require('./schema/schema');
+var mongoose = require('mongoose');
+var bodyParser = require("body-parser");
+const path = require('path');
+const cors = require('cors')
+const dotenv = require('dotenv');
 
-const app: express.Application = express();
+const app = express();
 
-app.get('/', function (req, res) {
-    res.send('Hello World')
-});
-app.listen(3000, function(){
-    console.log("App is listening on port 3000!")
-});
+app.use(cors())
+
+
+app.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: true
+}))
+
+app.listen(process.env.PORT, 4000)
