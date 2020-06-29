@@ -101,7 +101,6 @@ const WorldType = new GraphQLObjectType({
         name: { type : GraphQLString},
         background: {type: GraphQLString},
         creatorId: { type: GraphQLID },
-        dateCreated: {type: GraphQLString},
         creator: { 
             type: UserType,
             resolve(parent:any, args:any){
@@ -196,7 +195,45 @@ const Mutation = new GraphQLObjectType({
                 });
                 return newWorld.save();
             }
-        }
+        },
+        addCharacter: {
+            type: CharacterType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString)},
+                background: { type: new GraphQLNonNull(GraphQLString)},
+                creatorId: {type: new GraphQLNonNull(GraphQLID)}
+            },
+            resolve(parents: any, args: any){
+                let newWorld = new character({
+                    name: args.name,
+                    background: args.background,
+                    creatorId: args.creatorId
+                });
+                return newWorld.save();
+            }
+        },
+        addStoryLine: {
+            type: StoryLineType,
+            args: {
+                name: {type: new GraphQLNonNull(GraphQLString)},
+                theme: {type: new GraphQLNonNull(GraphQLString)},
+                intro: {type: new GraphQLNonNull(GraphQLString)},
+                creatorId: {type: new GraphQLNonNull(GraphQLID)},
+                worldId: {type: new GraphQLNonNull(GraphQLID)},
+                charactersId: {type: GraphQLList(GraphQLID)}
+            },
+            resolve(parents: any, args: any){
+                let newStoryLine = new storyLine({
+                    name: args.name,
+                    theme: args.theme,
+                    intro: args.intro,
+                    creatorId: args.creatorId,
+                    worldId: args.worldId,
+                    charactersId: args.charactersId
+                });
+                return newStoryLine.save();
+            }
+        },
     }
 })
 
