@@ -16,4 +16,13 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }))
 
-app.listen(process.env.PORT, 4000)
+mongoose.connect("mongodb+srv://admin:admin123456@cluster0-pyv3r.mongodb.net/Text-World?retryWrites=true&w=majority", { 
+    useUnifiedTopology: true,    
+    useNewUrlParser: true 
+});
+
+mongoose.connection.once('open', () => {
+    console.log('connected to the database');
+})
+
+app.listen(4000)
