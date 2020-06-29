@@ -14,7 +14,6 @@ const UserType = new GraphQLObjectType({
         _id: {type: GraphQLID},
         email: {type: GraphQLString},
         password: {type: GraphQLString},
-        dateCreated: {type: GraphQLString},
         characters: {
             type: CharacterType,
             resolve (parent: any, args: any){
@@ -35,8 +34,6 @@ const CharacterType = new GraphQLObjectType({
         creatorId: {type: GraphQLID},
         background: {type: GraphQLString},
         worldId: {type: GraphQLID},
-        //storyLineIds: {type: GraphQLID},
-        dateCreated: {type: GraphQLString},
         storyLines: {
             type: StoryLineType,
             resolve(parent: any, args: any){
@@ -66,7 +63,6 @@ const StoryLineType = new GraphQLObjectType({
         intro: {type: GraphQLString},
         creatorId: {type: GraphQLID},
         worldId: {type: GraphQLID},
-        dateCreated: {type: GraphQLString},
         charactersId: {type: GraphQLList(GraphQLID)},
         creator: { 
             type: CharacterType,
@@ -145,7 +141,6 @@ const PostType = new GraphQLObjectType({
         title: {type: GraphQLString},
         detail: {type: GraphQLString},
         storyLineId: {type: GraphQLID},
-        dateCreated: {type: GraphQLString},
         creator: { 
             type: CharacterType,
             resolve(parent:any, args:any){
