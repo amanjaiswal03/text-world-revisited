@@ -7,5 +7,5 @@ const worldSchema = new Schema({
     dateCreated: {type: Date, default: Date.now},
     background: String,
     creatorId: String
-})
+}, {timestamps: true})
 module.exports = mongoose.model('worlds', worldSchema);

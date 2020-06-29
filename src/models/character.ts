@@ -8,6 +8,6 @@ const characterSchema = new Schema({
     background: String,
     creatorId: Number,
     worldId: Number
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model('characters', characterSchema);

@@ -8,7 +8,5 @@ const storyLineSchema = new Schema({
     title: String,
     detail: String,
     storyLineId: Number,
-    dateCreated: {type: Date, default: Date.now},
-    
-})
+}, {timestamps: true})
 module.exports = mongoose.model('storyLines', storyLineSchema);

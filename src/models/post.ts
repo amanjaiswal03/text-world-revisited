@@ -9,6 +9,6 @@ const postSchema = new Schema({
     type: {type: String, enum: ['storyLine', 'journal']},
     creatorId: String,
     storyLineId: String 
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model('posts', postSchema);
